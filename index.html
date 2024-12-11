@@ -109,11 +109,6 @@
 <body>
     <div class="container">
         <h1>Xonoaxp Translator</h1>
-        <div id="keyForm" class="input-area">
-            <input type="text" id="key" placeholder="Enter your 15-character key" />
-            <button onclick="validateKey()">Submit Key</button>
-            <div class="error-message" id="error-message">Invalid key! Please try again.</div>
-        </div>
         <div class="input-area">
             <textarea id="inputText" placeholder="Enter text here..."></textarea>
             <div class="btn-container">
@@ -122,9 +117,6 @@
             </div>
         </div>
         <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
-        <div id="downloadSection" class="download-section">
-            <button onclick="downloadFile()">Download File</button>
-        </div>
     </div>
     <script>
         const xonoaxpMap = {
@@ -137,35 +129,9 @@
             '4': '⬘', '5': '⬙', '6': '⬚', '7': '⬛', '8': '⬜',
             '9': '◍', '.': '●', ',': '▪', '?': '❓', '!': '❗',
             '-': '―', ':': '∶', ';': '⁏', "'": '′', '"': '〞',
-            ' ': ' '
+            ' ': ' ' // Preserve spaces
         };
         const reverseMap = Object.fromEntries(Object.entries(xonoaxpMap).map(([key, value]) => [value, key]));
-
-        // Updated valid keys (encoded)
-        const validKeys = [
-            'UTxBJCB+SE9fcnFSIXRE',
-            'L1F7Oj8+NCY7cldxbkpt',
-            'WmZJJik3XSR1QG18dEIz',
-            'fUdkY3AkSHgwVyRVRWBL',
-            'YWl2OX4+eDUpWXouTXsl',
-            'SzlXWWpifjFwa1BJbnQi',
-            'MmsgQER+OistPiZnOmEz',
-            'MENJJjYvfi5HWmZkQkBT',
-            'LDI2PTBEfCdqM0pASXxU',
-            'bCl6KzRkWnlRTWlDeHJf'
-        ];
-
-        function validateKey() {
-            const enteredKey = document.getElementById('key').value;
-            const isValid = validKeys.includes(enteredKey);
-
-            if (isValid) {
-                document.getElementById('downloadSection').style.display = 'block';
-                document.getElementById('keyForm').style.display = 'none';
-            } else {
-                document.getElementById('error-message').style.display = 'block';
-            }
-        }
 
         function encode() {
             const input = document.getElementById("inputText").value.toUpperCase();
@@ -177,12 +143,6 @@
             const input = document.getElementById("inputText").value;
             const decoded = input.split("").map(char => reverseMap[char] || char).join("");
             document.getElementById("outputText").value = decoded;
-        }
-
-        function downloadFile() {
-            const link = document.createElement('a');
-            link.href = 'https://cdn.discordapp.com/attachments/1316195658318876753/1316195695660634213/The_Xonoaxp_Language.txt?ex=675a2a43&is=6758d8c3&hm=84c9137b2c3160535c871e0d48e9f421f983420f67108f67b9cc7603d3c7d1b2&';
-            link.click();
         }
     </script>
 </body>
